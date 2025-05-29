@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Account Steps</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      padding: 30px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4B0082;
+    }
+
+    .section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #333399;
+    }
+
+    ol, ul {
+      margin-left: 20px;
+    }
+
+    .progress {
+      height: 20px;
+      background: #ddd;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 90%;
+      background: linear-gradient(90deg, #6a5acd, #8a2be2);
+      border-radius: 10px;
+      transition: width 0.3s;
+    }
+
+    .doc-upload {
+      margin-top: 20px;
+    }
+
+    .doc-upload input {
+      padding: 10px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .voice-guide {
+      background: #6a5acd;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .bank-links a, .upi-links a {
+      display: inline-block;
+      margin-right: 15px;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #e6e6fa;
+      color: #4B0082;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .tips, .video, .faq {
+      margin-top: 20px;
+      padding: 10px;
+      background: #fff3cd;
+      border-left: 5px solid #ffcc00;
+      border-radius: 5px;
+    }
+
+    iframe {
+      border-radius: 10px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .faq-item {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Steps to Create Bank & UPI Account</h1>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Bank Account Creation -->
+    <div class="section">
+      <h2>🏦 Bank Account Creation</h2>
+      <ol id="bankSteps">
+        <li><input type="checkbox"> Choose your bank and account type.</li>
+        <li><input type="checkbox"> Collect required documents: Aadhaar, PAN, photo, etc.</li>
+        <li><input type="checkbox"> Apply online or visit a nearby branch.</li>
+        <li><input type="checkbox"> Fill the account form and submit KYC docs.</li>
+        <li><input type="checkbox"> Initial deposit (if needed) and get your welcome kit.</li>
+      </ol>
+      
+      <button class="voice-guide" onclick="speakBankSteps()">🎤 Listen to Bank Account Creation Steps in English</button>
+
+      <div class="bank-links">
+        <strong>Popular Bank Application Links:</strong><br>
+        <a href="https://www.onlinesbi.sbi/" target="_blank">SBI</a>
+        <a href="https://www.icicibank.com/" target="_blank">ICICI</a>
+        <a href="https://www.hdfcbank.com/" target="_blank">HDFC</a>
+        <a href="https://www.bankofbaroda.in/" target="_blank">Bank of Baroda</a>
+      </div>
+    </div>
+
+    <!-- UPI Setup -->
+    <div class="section">
+      <h2>📲 UPI Setup</h2>
+      <ol id="upiSteps">
+        <li><input type="checkbox"> Install UPI app: Google Pay / PhonePe / Paytm.</li>
+        <li><input type="checkbox"> Verify phone number linked to your bank.</li>
+        <li><input type="checkbox"> Choose bank and set UPI PIN using debit card.</li>
+        <li><input type="checkbox"> You're ready to send or receive money!</li>
+      </ol>
+
+      <button class="voice-guide" onclick="speakUPISteps()">🎤 Listen to UPI Setup Steps in English</button>
+
+      <div class="upi-links">
+        <strong>Download UPI Apps:</strong><br>
+        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user" target="_blank">Google Pay</a>
+        <a href="https://play.google.com/store/apps/details?id=com.phonepe.app" target="_blank">PhonePe</a>
+        <a href="https://play.google.com/store/apps/details?id=net.one97.paytm" target="_blank">Paytm</a>
+      </div>
+    </div>
+
+    <!-- YouTube Tutorials -->
+    <div class="video">
+        <strong>📽️ Watch how to set up UPI:</strong><br>
+        <iframe height="315" src="https://www.youtube.com/embed/exH_MFn8g_4" frameborder="0" allowfullscreen></iframe>
+        <br><br>
+        <strong>📽️ How to create a bank account online:</strong><br>
+        <iframe height="315" src="https://www.youtube.com/embed/Fjs4NxFCL10" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+    <!-- Security Tips -->
+    <div class="tips">
+      <strong>🛡️ Security Tips:</strong>
+      <ul>
+        <li>Never share your UPI PIN, debit card PIN, or OTP.</li>
+        <li>Use official apps only. Check logos and reviews.</li>
+        <li>Use fingerprint/FaceID for app lock.</li>
+        <li>Don’t use public Wi-Fi while doing transactions.</li>
+      </ul>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq">
+      <strong>❓ Frequently Asked Questions:</strong>
+      <div class="faq-item">
+        <strong>Q: What is KYC?</strong><br>
+        A: Know Your Customer (KYC) is a process to verify your identity using PAN, Aadhaar, etc.
+      </div>
+      <div class="faq-item">
+        <strong>Q: Which account is best for students?</strong><br>
+        A: A zero-balance savings account is ideal for students.
+      </div>
+      <div class="faq-item">
+        <strong>Q: What to do if I forget my UPI PIN?</strong><br>
+        A: Open the app → Go to settings → Reset UPI PIN using your debit card details.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function speak(text) {
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'en-US';  // Set language to English
+
+      return new Promise((resolve) => {
+        msg.onend = resolve;
+        window.speechSynthesis.speak(msg);
+      });
+    }
+
+    async function speakBankSteps() {
+      const bankSteps = [
+        "Choose your bank and account type.",
+        "Collect required documents: Aadhaar, PAN, photo, etc.",
+        "Apply online or visit a nearby branch.",
+        "Fill the account form and submit KYC docs.",
+        "Make the initial deposit if needed and receive your welcome kit."
+      ];
+
+      for (let i = 0; i < bankSteps.length; i++) {
+        await speak(bankSteps[i]);
+      }
+    }
+
+    async function speakUPISteps() {
+      const upiSteps = [
+        "Install a UPI app: Google Pay, PhonePe, or Paytm.",
+        "Verify the phone number linked to your bank.",
+        "Choose your bank and set the UPI PIN using your debit card.",
+        "You're ready to send or receive money!"
+      ];
+
+      for (let i = 0; i < upiSteps.length; i++) {
+        await speak(upiSteps[i]);
+      }
+    }
+  </script>
+</body>
+</html>

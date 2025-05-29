@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Education</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7fc;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #4B0082;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    .section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #4B0082;
+    }
+
+    .learn-button {
+      background-color: #6A5ACD;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 15px;
+    }
+
+    .learn-button:hover {
+      background-color: #8A2BE2;
+    }
+
+    .finance-calculator {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .calculator {
+      background-color: #E6E6FA;
+      padding: 20px;
+      border-radius: 8px;
+      width: 48%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .finance-news {
+      background-color: #FFFACD;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .finance-news h3 {
+      color: #333;
+    }
+
+    .news-ticker {
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #333;
+      padding: 10px;
+      background-color: #4B0082;
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💡 Finance Education Hub</h1>
+      <p>Empower yourself with knowledge about personal finance, investing, and more!</p>
+    </header>
+
+    <!-- Finance 101 Section -->
+    <div class="section">
+      <h2>📚 Finance 101</h2>
+      <p>Learn the basics of personal finance, budgeting, investing, and more!</p>
+      <button class="learn-button" onclick="window.location.href='https://www.investopedia.com/terms/f/finance.asp'">Start Learning</button>
+    </div>
+
+    <!-- Financial Calculators Section -->
+    <div class="section finance-calculator">
+      <div class="calculator">
+        <h3>💰 Loan Calculator</h3>
+        <input type="number" placeholder="Loan Amount" id="loan-amount" />
+        <input type="number" placeholder="Interest Rate (%)" id="loan-rate" />
+        <input type="number" placeholder="Loan Term (Years)" id="loan-term" />
+        <button class="learn-button" onclick="calculateLoan()">Calculate EMI</button>
+        <p id="emi-result"></p>
+      </div>
+      <div class="calculator">
+        <h3>💡 Savings Goal Calculator</h3>
+        <input type="number" placeholder="Target Amount" id="target-amount" />
+        <input type="number" placeholder="Monthly Contribution" id="monthly-contribution" />
+        <input type="number" placeholder="Months to Save" id="months-to-save" />
+        <button class="learn-button" onclick="calculateSavings()">Calculate</button>
+        <p id="savings-result"></p>
+      </div>
+    </div>
+
+    <!-- Finance News Section -->
+    <div class="finance-news">
+      <h3>📊 Latest Finance News</h3>
+      <div class="news-ticker">
+        <marquee>Breaking News: The stock market hits record highs! | Top tips for saving in 2025 | Best investment strategies for beginners |</marquee>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function calculateLoan() {
+      const amount = parseFloat(document.getElementById('loan-amount').value);
+      const rate = parseFloat(document.getElementById('loan-rate').value) / 100 / 12;
+      const term = parseInt(document.getElementById('loan-term').value) * 12;
+
+      if (isNaN(amount) || isNaN(rate) || isNaN(term) || amount <= 0 || rate <= 0 || term <= 0) {
+        alert("Please enter valid values!");
+        return;
+      }
+
+      const emi = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+      document.getElementById('emi-result').textContent = `Your EMI is: ₹${emi.toFixed(2)}`;
+    }
+
+    function calculateSavings() {
+      const target = parseFloat(document.getElementById('target-amount').value);
+      const monthly = parseFloat(document.getElementById('monthly-contribution').value);
+      const months = parseInt(document.getElementById('months-to-save').value);
+
+      if (isNaN(target) || isNaN(monthly) || isNaN(months) || target <= 0 || monthly <= 0 || months <= 0) {
+        alert("Please enter valid values!");
+        return;
+      }
+
+      const totalSaved = monthly * months;
+      document.getElementById('savings-result').textContent = `You will save ₹${totalSaved.toFixed(2)} in ${months} months. Target: ₹${target}`;
+    }
+  </script>
+</body>
+</html>

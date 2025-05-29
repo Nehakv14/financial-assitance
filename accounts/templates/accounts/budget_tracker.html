@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Wealth Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            background: #ffffff;
+            width: 60%;
+            margin: 1rem auto;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #6f42c1;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #5a2ca0;
+        }
+
+        #chart-container {
+            width: 80%;
+            margin: 2rem auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📊 Monthly Budget vs Expenses</h1>
+
+<div class="form-container">
+    <form id="budgetForm">
+        <div class="form-group">
+            <label for="month">Month</label>
+            <input type="text" id="month" required placeholder="e.g. April">
+        </div>
+        <div class="form-group">
+            <label for="budget">Budget</label>
+            <input type="number" id="budget" required placeholder="e.g. 5000">
+        </div>
+        <div class="form-group">
+            <label for="expenses">Expenses</label>
+            <input type="number" id="expenses" required placeholder="e.g. 4700">
+        </div>
+        <button type="submit">Add Entry</button>
+    </form>
+</div>
+
+<div id="chart-container">
+    <canvas id="budgetChart"></canvas>
+</div>
+
+<script>
+    // Initial empty arrays
+    const labels = [];
+    const budgetData = [];
+    const expensesData = [];
+
+    // Chart setup
+    const ctx = document.getElementById('budgetChart').getContext('2d');
+    const budgetChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Budget',
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    data: budgetData
+                },
+                {
+                    label: 'Expenses',
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    data: expensesData
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Handle form submission
+    document.getElementById('budgetForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const month = document.getElementById('month').value;
+        const budget = parseFloat(document.getElementById('budget').value);
+        const expenses = parseFloat(document.getElementById('expenses').value);
+
+        // Add data to arrays
+        labels.push(month);
+        budgetData.push(budget);
+        expensesData.push(expenses);
+
+        // Update chart
+        budgetChart.update();
+
+        // Clear the form
+        document.getElementById('budgetForm').reset();
+    });
+</script>
+
+</body>
+</html>

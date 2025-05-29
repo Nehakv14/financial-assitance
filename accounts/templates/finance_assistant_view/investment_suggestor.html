@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Suggestor – Finwise</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset and Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #e0e7ff, #f8f9fc);
+            color: #333;
+            padding: 20px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #4B0082;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #6a0dad;
+            margin-top: 30px;
+            font-size: 1.8rem;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        input, select {
+            padding: 12px;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #6a0dad;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 30px;
+            background-color: #6a0dad;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #7e22ce;
+            transform: translateY(-3px);
+        }
+
+        /* Info Boxes */
+        .info-box, .goal-box, .tip-box {
+            background: #f9f9ff;
+            border-left: 6px solid #6a0dad;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-box strong {
+            color: #333;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+
+        .graph-description {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        /* Tooltip for Graphs */
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            visibility: hidden;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📊 Finwise – Investment Suggestor</h1>
+
+    <div class="section">
+        <h2>📝 Fill in Your Financial Info</h2>
+
+        {% if error %}
+            <p style="color: red;"><strong>Error:</strong> {{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="age">Age:</label>
+            <input type="number" name="age" min="1" required>
+
+            <label for="income">Monthly Income (₹):</label>
+            <input type="number" name="income" min="1" required>
+
+            <label for="expenses">Monthly Expenses (₹):</label>
+            <input type="number" name="expenses" min="0" required>
+
+            <label for="risk_appetite">Risk Appetite:</label>
+            <select name="risk_appetite" required>
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+            </select>
+
+            <button type="submit">💡 Get Suggestions</button>
+        </form>
+    </div>
+
+    {% if suggestions and suggestions.plans %}
+        <div class="section">
+            <h2>📈 Your Investment Suggestions</h2>
+            <div class="info-box"><strong>Income:</strong> ₹{{ suggestions.income }}</div>
+            <div class="info-box"><strong>Expenses:</strong> ₹{{ suggestions.expenses }}</div>
+            <div class="info-box"><strong>Savings:</strong> ₹{{ suggestions.savings }}</div>
+            <div class="info-box"><strong>Recommended Investment Amount:</strong> ₹{{ suggestions.amount }}</div>
+            <div class="info-box"><strong>Suggested Plans:</strong>
+                <ul>
+                    {% for plan in suggestions.plans %}
+                        <li>{{ plan }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="info-box"><strong>Recommended Bank/Platform:</strong> {{ suggestions.bank }}</div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Risk vs Return Chart</h2>
+            <canvas id="riskChart"></canvas>
+            <div class="graph-description">
+                This bar chart shows the risk vs return scores for your selected investment plans. Higher return comes with higher risk.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📅 Monthly Saving Projections</h2>
+            <canvas id="projectionChart"></canvas>
+            <div class="graph-description">
+                This line chart shows how your savings could grow monthly based on your current income, expenses, and suggested savings plan.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💡 Tax-Saving Tips</h2>
+            <div class="tip-box">
+                <ul>
+                    {% for tip in suggestions.tax_tips %}
+                        <li>{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Tooltip for Graph -->
+<div id="tooltip" class="tooltip"></div>
+
+<script>
+    const labels = JSON.parse('{{ suggestions.graph_labels_json|safe }}');
+    const values = JSON.parse('{{ suggestions.graph_values_json|safe }}');
+
+    const ctx = document.getElementById('riskChart').getContext('2d');
+    const riskChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Risk vs Return',
+                data: values,
+                backgroundColor: ['#4B0082', '#6a0dad', '#8a2be2'],
+                borderRadius: 5,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Score'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    enabled: false
+                }
+            }
+        }
+    });
+
+    const months = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'];
+    const projections = JSON.parse('{{ suggestions.monthly_projection_json|safe }}');
+
+    const ctx2 = document.getElementById('projectionChart').getContext('2d');
+    const projectionChart = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [{
+                label: 'Projected Savings',
+                data: projections,
+                fill: true,
+                borderColor: '#4B0082',
+                backgroundColor: 'rgba(107, 64, 191, 0.1)',
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '₹ Amount Saved'
+                    }
+                }
+            }
+        }
+    });
+
+    // Tooltips for graphs
+    const tooltip = document.getElementById('tooltip');
+
+    function showTooltip(event, chart) {
+        const points = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+        if (points.length) {
+            const point = points[0];
+            const value = chart.data.datasets[point.datasetIndex].data[point.index];
+            tooltip.style.left = event.clientX + 10 + 'px';
+            tooltip.style.top = event.clientY + 10 + 'px';
+            tooltip.innerHTML = `₹ ${value}`;
+            tooltip.style.visibility = 'visible';
+        } else {
+            tooltip.style.visibility = 'hidden';
+        }
+    }
+
+    ctx.canvas.addEventListener('mousemove', function(event) {
+        showTooltip(event, riskChart);
+    });
+
+    ctx2.canvas.addEventListener('mousemove', function(event) {
+        showTooltip(event, projectionChart);
+    });
+</script>
+</body>
+</html>
