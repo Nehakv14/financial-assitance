@@ -1,0 +1,4 @@
+Frontend: HTML, CSS, JavaScript, Chart.js, WebGazer.js
+Backend: Django (Python)
+AI Tools: gTTS, SpeechRecognition API
+Database: SQLite (default for Django)
