@@ -1,4 +1,65 @@
-django
-requests
-python-dotenv
-gTTS
+Functional Requirements
+
+1. User Registration & Authentication
+Users should be able to create accounts, log in, and securely access their profiles.
+
+
+2. Bank Account Guide
+Provide step-by-step guidance on how to open a bank account, including required documents and procedures.
+
+
+3. Finance Assistant
+Allow users to input their income, expenses, and number of dependents to get personalized budgeting and saving advice.
+
+
+4. Finance Education Content
+Display easy-to-understand articles and tips about financial topics like saving, budgeting, loans, and investments.
+
+
+5. AI Assistant (Voice and Chat)
+Integrate a voice and chat assistant to answer common finance questions and guide users interactively.
+
+
+6. Wealth Management Visualization
+Show interactive bar charts and graphs of user’s income and expenses to help them understand their financial habits.
+
+
+7. Accessibility Features
+Include eye-tracking and other assistive technologies to help users with physical disabilities interact with the app.
+
+
+Technical Requirements
+
+1. Frontend
+
+HTML, CSS, JavaScript for UI
+
+Chart.js for dynamic financial charts
+
+WebGazer.js for eye-tracking interaction
+
+
+
+2. Backend
+
+Django (Python) to handle server-side logic, database operations, and APIs
+
+
+
+3. AI Tools
+
+Google Text-to-Speech (gTTS) for voice output
+
+Google SpeechRecognition API for voice input
+
+
+
+4. Database
+
+Store user profiles, financial data, educational content, and interaction logs
+
+
+
+5. Hosting & Deployment
+
+Host the web app on a reliable server or cloud platform for public access
