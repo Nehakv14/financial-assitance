@@ -1,3 +1,3 @@
-Title : financial assistance -finwise
+HEY!!! HI THIS IS OUR PROJECT : financial assistance -finwise
 using django python and html,css,js
-our team : kvneha,keerthana sagar,likhithashree,keerthana dm
+OUR TEAM : kvneha,keerthana sagar,likhithashree,keerthana dm
