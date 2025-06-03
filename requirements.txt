@@ -1,4 +1,0 @@
-django
-requests
-python-dotenv
-gTTS
